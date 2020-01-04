@@ -6,6 +6,8 @@ using System;
 [RequireComponent(typeof(AudioListener))]
 public class Audio : MonoBehaviour
 {
+    public bool compareAudio = true;
+    public bool scanDistance = true;
 
     private AudioListener listener;
     public AudioSource source;
@@ -25,8 +27,8 @@ public class Audio : MonoBehaviour
 
     float stepCount = 0;
 
-    bool movementDir; // true = right, false = left
-    bool lastMovementDir;
+    bool? movementDir; // true = right, false = left
+    bool? lastMovementDir;
     bool stopMovement = false;
 
     // Start is called before the first frame update
@@ -45,12 +47,12 @@ public class Audio : MonoBehaviour
         {
             transform.Rotate(0, 1, 0);
             StartCoroutine(ScanAngle());
-            DebugOutputArrays(1);
+            //DebugOutputArrays(1);
         }   
         else
         {
-            Debug.Log("Global Max: " + globalMax + "   " + globalMaxYRot);
-            Debug.Log("Global Min: " + globalMin + "   " + globalMinYRot);
+            //Debug.Log("Global Max: " + globalMax + "   " + globalMaxYRot);
+            //Debug.Log("Global Min: " + globalMin + "   " + globalMinYRot);
             if (dirObj == null)
             {
                 InstantiateDirectionObj();
@@ -66,7 +68,13 @@ public class Audio : MonoBehaviour
             else
             {
                 if (!stopMovement)
-                    StartCoroutine(ScanDistance());
+                    if (scanDistance)
+                        StartCoroutine(ScanDistance());
+                    else
+                        stopMovement = true;
+                else
+                    if (compareAudio)
+                        StartCoroutine(Reset());
             }
         }
         stepCount++;
@@ -99,8 +107,8 @@ public class Audio : MonoBehaviour
                 if (movementDir != lastMovementDir)
                 {
                     stopMovement = true;
-                    Debug.Log("Estimated Position: " + transform.position);
-                    Debug.Log("Real Position: " + source.transform.position);
+                    //Debug.Log("Estimated Position: " + transform.position);
+                    //Debug.Log("Real Position: " + source.transform.position);
                 }
             }
             lastMovementDir = movementDir;
@@ -216,7 +224,7 @@ public class Audio : MonoBehaviour
 
             GetLocalSampleExtremums();
 
-            DebugOutputArrays(1);
+            //DebugOutputArrays(1);
 
             if ((maxRight-minRight) > (maxLeft-minLeft))
             {
@@ -253,5 +261,40 @@ public class Audio : MonoBehaviour
                 break;
         }
 
+    }
+
+    private IEnumerator Reset()
+    {
+        yield return new WaitForSeconds(1f);
+
+        StopAllCoroutines();
+
+        Debug.Log(AudioSettings.GetSpatializerPluginName());
+        AudioSettings.SetSpatializerPluginName(null);
+        Debug.Log(AudioSettings.GetSpatializerPluginName());
+
+        this.transform.position = new Vector3(0, 0, -10);
+        this.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        yRot = 0f;
+        minRight = 1;
+        minLeft = 1;
+        maxRight = -1;
+        maxLeft = -1;
+
+        globalMax = -1;
+        globalMaxYRot = 0;
+        globalMin = 1;
+        globalMinYRot = 0;
+
+        stepCount = 0;
+
+        movementDir = null; // true = right, false = left
+        lastMovementDir = null;
+        stopMovement = false;
+
+        compareAudio = false;
+
+        dirObj = null;
     }
 }
