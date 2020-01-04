@@ -25,6 +25,10 @@ public class Audio : MonoBehaviour
 
     float stepCount = 0;
 
+    bool movementDir; // true = right, false = left
+    bool lastMovementDir;
+    bool stopMovement = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +44,8 @@ public class Audio : MonoBehaviour
         if (stepCount <= 360)
         {
             transform.Rotate(0, 1, 0);
-            ScanAngle();
+            StartCoroutine(ScanAngle());
+            DebugOutputArrays(1);
         }   
         else
         {
@@ -56,13 +61,59 @@ public class Audio : MonoBehaviour
                 Debug.Log("Real Angle: " + transform.rotation.eulerAngles.y);
 
                 StartCoroutine(CheckDirectionAngle());
+                
+            }
+            else
+            {
+                if (!stopMovement)
+                    StartCoroutine(ScanDistance());
             }
         }
         stepCount++;
     }
 
-    private void ScanAngle()
+    private IEnumerator ScanDistance()
     {
+        transform.rotation = Quaternion.Euler(0, dirObj.transform.rotation.eulerAngles.y + 90, 0);
+
+        yield return new WaitForSeconds(0.1f);
+
+        try
+        {
+            AudioListener.GetOutputData(volumeRight, 1);
+            AudioListener.GetOutputData(volumeLeft, 0);
+
+            GetLocalSampleExtremums();
+            if ((maxRight - minRight) > (maxLeft - minLeft))
+            {
+                transform.position += transform.right;
+                movementDir = true;
+            }
+            else
+            {
+                transform.position += -transform.right;
+                movementDir = false;
+            }
+            if (lastMovementDir != null)
+            {
+                if (movementDir != lastMovementDir)
+                {
+                    stopMovement = true;
+                    Debug.Log("Estimated Position: " + transform.position);
+                    Debug.Log("Real Position: " + source.transform.position);
+                }
+            }
+            lastMovementDir = movementDir;
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+        }
+    }
+
+    private IEnumerator ScanAngle()
+    {
+        yield return new WaitForSeconds(0.1f);
             // if the channels are not available catch the error without soft locking the programm
             try
             {
