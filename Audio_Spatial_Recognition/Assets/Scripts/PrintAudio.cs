@@ -7,6 +7,9 @@ using System.Linq;
 
 public class PrintAudio : MonoBehaviour
 {
+    public bool auto = true;
+    public bool drawCont = true;
+
     public float RmsValueR;
     public float DbValueR;
     public float PitchValueR;
@@ -25,7 +28,7 @@ public class PrintAudio : MonoBehaviour
     public Text Source_Angle;
     public Text Cross_Cor;
 
-    private const int QSamples = 256;
+    private const int QSamples = 128;
     private const float RefValue = 0.001f;
     private const float Threshold = 0.002f;
 
@@ -38,6 +41,8 @@ public class PrintAudio : MonoBehaviour
     private float _fSample;
 
     private bool rotate = true;
+    private bool keyPressed = false;
+    private bool drawn = false;
 
     void Start()
     {
@@ -51,19 +56,61 @@ public class PrintAudio : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (rotate)
-            StartCoroutine(Rotate());
+        if (auto)
+        {
+            if (rotate)
+                StartCoroutine(Rotate(1));
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                if (!keyPressed)
+                {
+                    StartCoroutine(Rotate(1));
+                    keyPressed = true;
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                if (!keyPressed)
+                {
+                    StartCoroutine(Rotate(-1));
+                    keyPressed = true;
+                }
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
+            {
+                keyPressed = false;
+                drawn = false;
+            }
+        }
+        if (_samplesL.Length != 0)
+        {
+            DrawSpectrum(_spectrumL, _spectrumR);
+            DrawVolume(_samplesL, _samplesR);
+        }
+        if (drawCont)
+            GetSoundData();
+        else
+        {
+            if (!drawn)
+            {
+                GetSoundData();
+                drawn = true;
+            }
+        }
     }
 
-    IEnumerator Rotate()
+    IEnumerator Rotate(int dir)
     {
         rotate = false;
         yield return new WaitForSeconds(0.2f);
-        transform.Rotate(0, 1, 0);
+        transform.Rotate(0, dir, 0);
         rotate = true;
     }
 
-    void Update()
+    void GetSoundData()
     {
         AudioListener.GetOutputData(_samplesL, 0); // fill array with samples
         AudioListener.GetOutputData(_samplesR, 1); // fill array with samples
@@ -72,7 +119,7 @@ public class PrintAudio : MonoBehaviour
 
         float[] valuesL = AnalyzeSound(_samplesL, _spectrumL);
         float[] valuesR = AnalyzeSound(_samplesR, _spectrumR);
-        float r = CorrelationFunction(_spectrumL, _spectrumR);
+        float r = CorrelationFunction(_samplesL, _samplesR);
 
         RmsValueL = valuesL[0];
         DbValueL = valuesL[1];
@@ -95,27 +142,29 @@ public class PrintAudio : MonoBehaviour
         Source_Angle.text = "Source Angle: " + sAngle.ToString();
 
         Cross_Cor.text = "Cross Cor.: " + r.ToString();
-
-        DrawArray(_spectrumL, _spectrumR);
     }
 
-    private void DrawArray(float[] a, float[] b)
+    private void DrawSpectrum(float[] a, float[] b)
     {
         for (int i = 1; i < a.Length - 1; i++)
         {
-            //Debug.DrawLine(new Vector3(i - 1, a[i] + 10, 0), new Vector3(i, a[i + 1] + 10, 0), Color.red);
             Debug.DrawLine(new Vector3(i - 1, Mathf.Log(a[i - 1]) + 10, 0), new Vector3(i, Mathf.Log(a[i]) + 10, 0), Color.cyan);
-            //Debug.DrawLine(new Vector3(Mathf.Log(i - 1), a[i - 1] - 10, 0), new Vector3(Mathf.Log(i), a[i] - 10, 0), Color.green);
-            Debug.DrawLine(new Vector3(Mathf.Log(i - 1), Mathf.Log(a[i - 1]), 0), new Vector3(Mathf.Log(i), Mathf.Log(a[i]), 0), Color.blue);
-
-            //Debug.DrawLine(new Vector3(i - 1, b[i] + 10, 0), new Vector3(i, b[i + 1] + 10, 0), Color.black);
-            Debug.DrawLine(new Vector3(i - 1, Mathf.Log(b[i - 1]) + 10, 0), new Vector3(i, Mathf.Log(b[i]) + 10, 0), Color.gray);
-            //Debug.DrawLine(new Vector3(Mathf.Log(i - 1), b[i - 1] - 10, 0), new Vector3(Mathf.Log(i), b[i] - 10, 0), Color.magenta);
-            Debug.DrawLine(new Vector3(Mathf.Log(i - 1), Mathf.Log(b[i - 1]), 0), new Vector3(Mathf.Log(i), Mathf.Log(b[i]), 0), Color.white);
+            Debug.DrawLine(new Vector3(i - 1, Mathf.Log(b[i - 1]) + 10, 0), new Vector3(i, Mathf.Log(b[i]) + 10, 0), Color.yellow);
         }
     }
 
-    float[] AnalyzeSound(float[] a, float[]b)
+    private void DrawVolume(float[] c, float[] d)
+    {
+        for (int j = 1; j < c.Length - 1; j++)
+        {
+            Debug.DrawLine(new Vector3(j - 1, c[j] * 20 + 10, 0), new Vector3(j, c[j + 1] * 20 + 10, 0), Color.red);
+            Debug.DrawLine(new Vector3(j - 1, d[j] * 20 + 10, 0), new Vector3(j, d[j + 1] * 20 + 10, 0), Color.green);
+
+            Debug.DrawLine(new Vector3(j - 1, (c[j] - d[j]) * 20 + 10, 0), new Vector3(j, (c[j + 1] - d[j + 1]) * 20 + 10, 0), Color.blue);
+        }
+    }
+
+    float[] AnalyzeSound(float[] a, float[] b)
     {
         float RmsValue;
         float DbValue;
