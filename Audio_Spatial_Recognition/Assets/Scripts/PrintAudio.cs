@@ -52,6 +52,8 @@ public class PrintAudio : MonoBehaviour
         _spectrumL = new float[QSamples];
 
         _fSample = AudioSettings.outputSampleRate;
+
+        Time.timeScale = 0.05f;
     }
 
     private void FixedUpdate()
@@ -117,6 +119,9 @@ public class PrintAudio : MonoBehaviour
         AudioListener.GetSpectrumData(_spectrumL, 0, FFTWindow.BlackmanHarris); // fill array with samples
         AudioListener.GetSpectrumData(_spectrumR, 1, FFTWindow.BlackmanHarris); // fill array with samples
 
+        //for (int k = 0; k < _spectrumL.Length; k++)
+        //    Debug.Log("Spektrum Linker Kanal: " + _spectrumL[k] + " | Spektrum Rechter Kanal: " + _spectrumR[k]);
+
         float[] valuesL = AnalyzeSound(_samplesL, _spectrumL);
         float[] valuesR = AnalyzeSound(_samplesR, _spectrumR);
         float r = CorrelationFunction(_samplesL, _samplesR);
@@ -160,7 +165,7 @@ public class PrintAudio : MonoBehaviour
             Debug.DrawLine(new Vector3(j - 1, c[j] * 20 + 10, 0), new Vector3(j, c[j + 1] * 20 + 10, 0), Color.red);
             Debug.DrawLine(new Vector3(j - 1, d[j] * 20 + 10, 0), new Vector3(j, d[j + 1] * 20 + 10, 0), Color.green);
 
-            Debug.DrawLine(new Vector3(j - 1, (c[j] - d[j]) * 20 + 10, 0), new Vector3(j, (c[j + 1] - d[j + 1]) * 20 + 10, 0), Color.blue);
+            //Debug.DrawLine(new Vector3(j - 1, (c[j] - d[j]) * 20 + 10, 0), new Vector3(j, (c[j + 1] - d[j + 1]) * 20 + 10, 0), Color.blue);
         }
     }
 
