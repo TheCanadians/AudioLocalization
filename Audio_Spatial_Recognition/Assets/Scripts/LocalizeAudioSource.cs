@@ -7,9 +7,9 @@ public class LocalizeAudioSource : MonoBehaviour
     private float DbValueR;
     private float DbValueL;
 
-    [SerializeField] private const int SampleSize = 128;
-    [SerializeField] private const float ReferenceValue = 0.001f;
-    [SerializeField] private const float Threshold = 0.002f;
+    [SerializeField] private int SampleSize = 128;
+    [SerializeField] private float ReferenceValue = 0.0001f;
+    [SerializeField] private float Threshold = 0.0002f;
 
     private float[] _samplesR;
     private float[] _samplesL;
