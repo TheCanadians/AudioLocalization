@@ -788,9 +788,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SampleSize: 128
-  ReferenceValue: 0.0001
-  Threshold: 0.0002
+  stepSize: 1
+  stopTime: 10
   source: {fileID: 1758441970}
+  clips:
+  - {fileID: 8300000, guid: 25d814db610cf604ea2d08ee631939c4, type: 3}
+  - {fileID: 8300000, guid: 56af417644d6b134c8197c88da9be0af, type: 3}
+  - {fileID: 8300000, guid: 99f8cfcd852e7f1478f0b1fce632fc06, type: 3}
+  - {fileID: 8300000, guid: 8d943436ff304354ebcb0f2b4730c7d9, type: 3}
+  - {fileID: 8300000, guid: dee88c7507e6e8a4badcbcc5327112be, type: 3}
+  - {fileID: 8300000, guid: a1920c65cd8c19947ac40c8a708f438a, type: 3}
+  - {fileID: 8300000, guid: 6bbfaa45d8572cb42a07005f2e0be014, type: 3}
+  - {fileID: 8300000, guid: 887618ce144ce194d9d71a158e6769b8, type: 3}
+  - {fileID: 8300000, guid: 15144d16c32e6364eb9ded1f57a5cadf, type: 3}
+  playAllClipsAutomatically: 1
+  numberOfRepetitions: 10
+  pathToSaveTo: 
+  fileName: Steam_HRTF
+  debug: 0
 --- !u!1 &985141729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,11 +1068,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 56af417644d6b134c8197c88da9be0af, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 1
   SpatializePostEffects: 0
