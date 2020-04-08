@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
+[RequireComponent(typeof(AudioListener))]
 public class LocalizeAudioSource : MonoBehaviour
 {
     // Db Values of the sound the left and right channel are hearing
