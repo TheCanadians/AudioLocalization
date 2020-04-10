@@ -312,11 +312,19 @@ MonoBehaviour:
   stopTime: 10
   source: {fileID: 1758441970}
   clips:
+  - {fileID: 8300000, guid: 25d814db610cf604ea2d08ee631939c4, type: 3}
   - {fileID: 8300000, guid: 56af417644d6b134c8197c88da9be0af, type: 3}
+  - {fileID: 8300000, guid: 99f8cfcd852e7f1478f0b1fce632fc06, type: 3}
+  - {fileID: 8300000, guid: 8d943436ff304354ebcb0f2b4730c7d9, type: 3}
+  - {fileID: 8300000, guid: dee88c7507e6e8a4badcbcc5327112be, type: 3}
+  - {fileID: 8300000, guid: a1920c65cd8c19947ac40c8a708f438a, type: 3}
+  - {fileID: 8300000, guid: 6bbfaa45d8572cb42a07005f2e0be014, type: 3}
+  - {fileID: 8300000, guid: 887618ce144ce194d9d71a158e6769b8, type: 3}
+  - {fileID: 8300000, guid: 15144d16c32e6364eb9ded1f57a5cadf, type: 3}
   playAllClipsAutomatically: 1
-  numberOfRepetitions: 25
+  numberOfRepetitions: 10
   pathToSaveTo: 
-  fileName: Steam_200_2
+  fileName: No_HRTF
   debug: 0
 --- !u!1 &1758441969
 GameObject:
