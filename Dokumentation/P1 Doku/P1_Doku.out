@@ -1,0 +1,15 @@
+\BOOKMARK [1][-]{section.1}{Motivation}{}% 1
+\BOOKMARK [1][-]{section.2}{Herangehensweise}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Pegeldifferenzbestimmung}{section.2}% 3
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Erwartung}{subsection.2.1}% 4
+\BOOKMARK [2][-]{subsection.2.2}{Interaurale Kreuzkorrelation}{section.2}% 5
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Erwartung}{subsection.2.2}% 6
+\BOOKMARK [2][-]{subsection.2.3}{Head-related Transfer Function \(HRTF\)}{section.2}% 7
+\BOOKMARK [1][-]{section.3}{Umsetzung}{}% 8
+\BOOKMARK [2][-]{subsection.3.1}{Unity-Szene}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.2}{Skript}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.3}{Wahl der Audioclips}{section.3}% 11
+\BOOKMARK [1][-]{section.4}{Durchf\374hrung des Versuchs}{}% 12
+\BOOKMARK [1][-]{section.5}{Resultate}{}% 13
+\BOOKMARK [2][-]{subsection.5.1}{Kreuzkorrelationsfunktion}{section.5}% 14
+\BOOKMARK [2][-]{subsection.5.2}{Pegeldifferenz}{section.5}% 15
