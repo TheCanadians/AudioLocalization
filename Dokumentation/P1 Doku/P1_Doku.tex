@@ -55,7 +55,7 @@ Um unsere Anwendung testen zu können, musste eine Unity-Szene erstellt werden, 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.6]{setup2}
-\caption{Bild 1: Audio Source-Konfiguration}
+\caption{Audio Source-Konfiguration}
 \end{figure}
 
 Auf dem Audio Listener muss das Skript liegen, welches zur Lokalisation der Audioquelle dient.\\
@@ -70,14 +70,15 @@ Das Skript für die Lokalisation der Audioquelle geht folgende Schritte durch:
 \item Auslesen der Spannungswerte der einzelnen Kanäle und Umwandlung in Pegel (dB)
 \item Vergleich der Pegelwerte beider Kanäle
 \item Rotation in Richtung des lauteren Kanals
-\item Prüfung, in welche Richtung sich der Audio Listener im letzten Schritt bewegt hat
+\item Prüfung, in welche Richtung sich der Audio Listener im letzten Schritt bewegt hat/Dokumentation des aktuellen Winkels nach x Sekunden
+
 \item Sobald die Richtung sich geändert hat, wurde der Azimut der Audioquelle bestimmt
 \end{enumerate}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{setup1}
-\caption{Bild 2: Audioquelle (rot) dreht befindet sich auf einer randomisierten Position auf dem Kreis (blau) um den Audio Listener innerhalb des Kreises}
+\caption{Audioquelle (rot) dreht befindet sich auf einer randomisierten Position auf dem Kreis (blau) um den Audio Listener innerhalb des Kreises}
 \end{figure}
 
 \subsection{Wahl der Audioclips}
@@ -106,7 +107,7 @@ Die Auswahl der Sinusfrequenzen leitet sich aus der Wellenlänge ab. Basierend a
 Die Unterscheidung von Mono- und Stereospuren wurde vorgenommen, um zu prüfen, ob die Unity-Engine diese anders verarbeitet und andere Ergebnisse daraus resultieren. 
 
 \section{Durchführung des Versuchs}
-
+Wird das Programm gestartet, fängt der Audio Listener an sich zu drehen. Dies tut er in 1$^\circ$ Inkrementen nach links bzw. rechts. Nach 10 Sekunden stoppt der Listener und der momentane Winkel wird gespeichert und der nächste Durchgang startet. Insgesamt wird jeder Audioclip 10 mal wiederholt und erscheint an einer anderen Stelle. Wir ließen die Anwendung mit den drei Spatializern, sowie ein weiteres Mal ohne Spatializer, durchlaufen und die daraus resultierenden Daten, geschätzter Winkel, tatsächlicher Winkel und Abweichung wurden in einem Spreadsheet festgehalten.
 \section{Resultate}
 \subsection{Kreuzkorrelationsfunktion}
 Bei dem Versuch, den Azimut mit der interauralen Kreuzkorrelation zu bestimmen, stellte sich heraus, dass die Unity-Engine Audiosignale zeitunabhängig berechnet. Eine Lokalisation mit der interauralen Kreuzkorrelation war deshalb nicht möglich, da diese ausschließlich zeitabhängig arbeitet.
@@ -114,19 +115,15 @@ Bei dem Versuch, den Azimut mit der interauralen Kreuzkorrelation zu bestimmen, 
 \subsection{Pegeldifferenz}
 Das Lokalisieren von den Audioquellen hat mit den verschiedenen Spatializern durchgehend gut funktioniert. Alle Spatializer schafften es, die Winkeldifferenz zwischen tatsächlicher Position und geschätzter Position in einem kleinen Bereich, mit einer unerheblichen Zahl an Ausreißern, zu halten.\\
 
-Mit der MS HRTF lag die Winkeldifferenz beispielsweise meistens zwischen -19° und 9° und bei Steam Audio zwischen -7° und 12°. Besonders gut funktionierten „Speech“ und „Symphony Sounds“. Nur bei einem Sinuston von 200Hz konnte fast kein  Spatializer die Quelle genau orten. Mit einem Fehlerbereich von -4° bis 8° war der Oculus Spatializer der einzige, der die Quelle bei 200Hz ziemlich genau orten konnte. Die gemessenen Werte lassen darauf schließen, dass eine Soundquelle mit 200Hz mit dem Einsatz von Spatializern schwer zu lokalisieren ist.\\
-
-Die Abweichungen bei 200Hz waren zwar unter den Spatializer recht weit auseinander aber die Werte lagen dennoch ziemlich konstant beieinander. Der MS HRTF Spatializer wies beispielsweise eine Abweichung im Bereich -51° bis -54° und der Native Oculus Spatializer im Bereich -4° bis 8° auf. Lediglich der Steam Audio Spatializer war ziemlich ungenau mit Abweichungen im Bereich von -172° bis 167°.\\
-
-\begin{figure}[h!]
+Mit der MS HRTF lag die Winkeldifferenz beispielsweise meistens zwischen -19$^\circ$ und 9$^\circ$ und bei Steam Audio zwischen -7$^\circ$ und 12$^\circ$. Besonders gut funktionierten „Speech“ und „Symphony Sounds“. Nur bei einem Sinuston von 200Hz konnte fast kein  Spatializer die Quelle genau orten. Mit einem Fehlerbereich von -4$^\circ$ bis 8$^\circ$ war der Oculus Spatializer der einzige, der die Quelle bei 200Hz ziemlich genau orten konnte. Die gemessenen Werte lassen darauf schließen, dass eine Soundquelle mit 200Hz mit dem Einsatz von Spatializern schwer zu lokalisieren ist.\\
+Die Abweichungen bei 200Hz waren zwar unter den Spatializer recht weit auseinander aber die Werte lagen dennoch ziemlich konstant beieinander. Der MS HRTF Spatializer wies beispielsweise eine Abweichung im Bereich -51$^\circ$ bis -54$^\circ$ und der Native Oculus Spatializer im Bereich -4$^\circ$ bis 8$^\circ$ auf. Lediglich der Steam Audio Spatializer war ziemlich ungenau mit Abweichungen im Bereich von -172$^\circ$ bis 167$^\circ$ .\newpage
+\begin{figure}[!h]
 \centering
 \includegraphics[scale=0.4]{Vergleich_HRTFs}
-\caption{Bild 3: Vergleich der verschiedenen HRTFs}
+\caption{Vergleich der verschiedenen HRTFs}
 \end{figure}
 
-Man erkennt in der Abbildung, dass das Lokalisieren von Audioquellen ohne Spatializer anhand der Pegeldifferenzbestimmung sehr genau ist. Die größte Abweichung wurde hier mit 1,9° gemessen.
-
-
+Man erkennt in der Abbildung, dass das Lokalisieren von Audioquellen ohne Spatializer anhand der Pegeldifferenzbestimmung sehr genau ist. Die größte Abweichung wurde hier mit 1,9$^\circ$ gemessen.
 
 \bibliographystyle{plain}
 \bibliography{sources}
