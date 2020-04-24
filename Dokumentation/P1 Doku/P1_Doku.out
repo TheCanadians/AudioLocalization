@@ -8,8 +8,10 @@
 \BOOKMARK [1][-]{section.3}{Umsetzung}{}% 8
 \BOOKMARK [2][-]{subsection.3.1}{Unity-Szene}{section.3}% 9
 \BOOKMARK [2][-]{subsection.3.2}{Skript}{section.3}% 10
-\BOOKMARK [2][-]{subsection.3.3}{Wahl der Audioclips}{section.3}% 11
-\BOOKMARK [1][-]{section.4}{Durchf\374hrung des Versuchs}{}% 12
-\BOOKMARK [1][-]{section.5}{Resultate}{}% 13
-\BOOKMARK [2][-]{subsection.5.1}{Kreuzkorrelationsfunktion}{section.5}% 14
-\BOOKMARK [2][-]{subsection.5.2}{Pegeldifferenz}{section.5}% 15
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Spawn-Skript}{subsection.3.2}% 11
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Lokalisationsskript}{subsection.3.2}% 12
+\BOOKMARK [2][-]{subsection.3.3}{Wahl der Audioclips}{section.3}% 13
+\BOOKMARK [1][-]{section.4}{Durchf\374hrung des Versuchs}{}% 14
+\BOOKMARK [1][-]{section.5}{Resultate}{}% 15
+\BOOKMARK [2][-]{subsection.5.1}{Kreuzkorrelationsfunktion}{section.5}% 16
+\BOOKMARK [2][-]{subsection.5.2}{Pegeldifferenz}{section.5}% 17

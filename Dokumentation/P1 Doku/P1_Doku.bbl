@@ -6,10 +6,26 @@ C.~Faller and J.~Merimaa.
   binaural cues based on interaural coherence.
 \newblock {\em Acoustic Society of America}, Vol. 116(5), 2004.
 
+\bibitem{Grel}
+D.~Grelaud, N.~Bonneel, M.~Wimmer, M.~Asselot, and G.~Drettakis.
+\newblock {\em Efficient and Practical Audio-Visual Rendering for Games using
+  Crossmodal Perception}.
+\newblock Association for Computing Machinery Inc, 2009.
+
 \bibitem{Rasp}
 M.~Raspaud, H.~Viste, and G.~Evangelista.
 \newblock Binaural source localization by joint estimation of {ILD} and {ITD}.
 \newblock {\em {IEEE} Transactions on Audio, Speech, and language processing},
   18(1), 2010.
+
+\bibitem{Wein}
+S.~Weinzierl.
+\newblock {\em Handbuch Der Audiotechnik}.
+\newblock Springer, 2008.
+
+\bibitem{Zölz}
+U.~Zölzer.
+\newblock {\em {DAFX}: Digital Audio Effects}.
+\newblock John Wiley and Sons Ltd, 2011.
 
 \end{thebibliography}
